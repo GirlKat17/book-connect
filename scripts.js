@@ -4,6 +4,15 @@ import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 let page = 1;
 let matches = books
 
+
+let night =  document.querySelector('[data-settings-theme]').value = 'night'
+            document.documentElement.style.setProperty('--color-dark', '255, 255, 255');
+            document.documentElement.style.setProperty('--color-light', '10, 10, 20');
+            
+let day =    document.querySelector('[data-settings-theme]').value = 'day'
+                document.documentElement.style.setProperty('--color-dark', '10, 10, 20');
+                document.documentElement.style.setProperty('--color-light', '255, 255, 255');;
+
 const starting = document.createDocumentFragment()
 
 for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
@@ -59,17 +68,14 @@ for (const [id, name] of Object.entries(authors)) {
 document.querySelector('[data-search-authors]').appendChild(authorsHtml)
 
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.querySelector('[data-settings-theme]').value = 'night'
-    document.documentElement.style.setProperty('--color-dark', '255, 255, 255');
-    document.documentElement.style.setProperty('--color-light', '10, 10, 20');
+    night
+   
 } else {
-    document.querySelector('[data-settings-theme]').value = 'day'
-    document.documentElement.style.setProperty('--color-dark', '10, 10, 20');
-    document.documentElement.style.setProperty('--color-light', '255, 255, 255');
+ day
 }
 
 document.querySelector('[data-list-button]').innerText = `Show more (${books.length - BOOKS_PER_PAGE})`
-document.querySelector('[data-list-button]').disabled = (matches.length - (page * BOOKS_PER_PAGE)) > 0
+document.querySelector('[data-list-button]').enable = (matches.length - (page * BOOKS_PER_PAGE)) > 0
 
 document.querySelector('[data-list-button]').innerHTML = `
     <span>Show more</span>
@@ -226,15 +232,15 @@ document.querySelector('[data-list-items]').addEventListener('click', (event) =>
         }
     }
 
-    DataList: {
-        document.querySelector('[data-list-active]').open = true
+  Datalist:{ document.querySelector('[data-list-active]').open = true
         document.querySelector('[data-list-blur]').src = active.image
         document.querySelector('[data-list-image]').src = active.image
         document.querySelector('[data-list-title]').innerText = active.title
         document.querySelector('[data-list-subtitle]').innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`
         document.querySelector('[data-list-description]').innerText = active.description
-    }
+}
 
-    if (active) {DataList
+    if (active) { Datalist
+        
     }
 })
