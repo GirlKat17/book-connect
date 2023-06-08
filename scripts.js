@@ -19,7 +19,6 @@ for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
     const element = document.createElement('button')
     element.classList = 'preview'
     element.setAttribute('data-preview', id)
-
     element.innerHTML = `
         <img
             class="preview__image"
