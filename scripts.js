@@ -21,7 +21,7 @@ function createBookElement(book) {
     `
     return element;
 }
-
+// show more(the button at the bottom of the page to display more books)
 
 function renderBooks() {
     const bookItemsContainer = document.querySelector('[data-list-items]');
@@ -40,6 +40,7 @@ function renderBooks() {
     listButton.innerText = `Show more (${remainingBooks > 0 ? remainingBooks : 0})`;
     listButton.disabled = remainingBooks <= 0;
 }
+// theme (to change between dark and light )
 
 function applyTheme(theme) {
     const darkColor = '255, 255, 255';
@@ -52,6 +53,7 @@ function applyTheme(theme) {
         document.documentElement.style.setProperty('--color-light', darkColor);
     }
 }
+// search(searching for books)
 
 function handleSearchFormSubmit(event) {
     event.preventDefault();
@@ -97,6 +99,13 @@ function handleListButtonClick() {
     renderBooks();
 }
 
+
+
+ 
+// preview( the option that allows you to preview a selected book )
+
+
+
 function handleBookItemClick(event) {
     const pathArray = Array.from(event.path || event.composedPath());
     let active = null;
@@ -104,6 +113,7 @@ function handleBookItemClick(event) {
         if (active) break;
         if (node?.dataset?.preview) {
             let result = null;
+
             for (const singleBook of books) {
                 if (result) break;
                 if (singleBook.id === node?.dataset?.preview) result = singleBook;
@@ -111,7 +121,6 @@ function handleBookItemClick(event) {
             active = result;
         }
     }
-
 
     if (active) {
         document.querySelector('[data-list-active]').open = true;
@@ -122,6 +131,9 @@ function handleBookItemClick(event) {
         document.querySelector('[data-list-description]').innerText = active.description;
     }
 }
+
+// end of preview 
+
 
 
 function initialize() {
@@ -149,8 +161,13 @@ function initialize() {
     document.querySelector('[data-search-form]').addEventListener('submit', handleSearchFormSubmit);
     document.querySelector('[data-list-button]').addEventListener('click', handleListButtonClick);
     document.querySelector('[data-list-items]').addEventListener('click', handleBookItemClick);
+
+
     // Initial rendering
+
     renderBooks();
+
+
     // Apply theme based on user preference
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         document.querySelector('[data-settings-theme]').value = 'night';
@@ -159,6 +176,8 @@ function initialize() {
         document.querySelector('[data-settings-theme]').value = 'day';
         applyTheme('day');
     }
+
+
     // Update remaining book count
     document.querySelector('[data-list-button]').innerHTML = `
         <span>Show more</span>
